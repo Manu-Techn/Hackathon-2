@@ -1,0 +1,158 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+    background-color: lightcyan;
+    margin: 10px;
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: 16px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    min-height: 100vh;
+}
+
+.container {
+    background: lightseagreen;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+h1, h2, h3{
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+    line-height: 1.2;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: black;
+    padding: 20px;
+    border-top: 3px solid #ccc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    background-color: lightslategrey
+}
+
+footer p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.footer-links a {
+    color: blue;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: 500;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px ) {
+    .footer-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+button {
+    background-color: teal;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+button:hover {
+    background-color: darkcyan;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        max-width: 90%;
+    }
+    body {
+        margin: 5px;
+        padding: 10px;
+    }
+}
+
+.ai-encouragement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.ai-encouragement textarea {
+  width: 80%;
+  height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid white;
+  resize: vertical;
+}
+
+.ai-encouragement button {
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: teal;
+  color: white;
+  cursor: pointer;
+}
+
+.ai-encouragement button:hover {
+  background-color: teal;
+}
+
+.ai-encouragement p {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #333;
+  font-style: italic;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.entries {
+  list-style-type: none;   /* removes bullets */
+  margin: 0;               /* remove browser default spacing */
+  padding: 0;              /* remove indentation */
+}
+
+.entries li {
+  margin-bottom: 10px;     /* add some spacing between items */
+}
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood Journal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Mood Journal</h1>
+      <p class="intro">Track your thoughts and feelings everyday.</p>
+    </header>
+
+    <section class="new-entry">
+      <h2>New Entry</h2>
+      <form method="POST">
+        <!-- Optional: keep mood select OR remove it if AI decides mood -->
+        <label for="mood">Mood:</label>
+        <select name="mood" id="mood">
+          <option>Happy</option>
+          <option>Neutral</option>
+          <option>Sad</option>
+          <option>Angry</option>
+          <option>Tired</option>
+        </select>
+        <br><br>
+
+        <textarea name="entry" rows="4" cols="50" placeholder="How are you feeling today?"></textarea>
+        <br>
+        <button type="submit">Save</button>
+      </form>
+    </section>
+
+    <section class="verses">
+      <h2>Verse for Encouragement</h2>
+      <p id="verse-text">The Lord is my shepherd; I shall not want.</p>
+      <p id="verse-ref">Psalm 23:1</p>
+      <button onclick="nextVerse()">Next Verse</button>
+    </section>
+
+    <section class="ai-encouragement">
+      <h2>Need some encouragement?</h2>
+      <textarea id="userinput" placeholder="Type how you're feeling..."></textarea>
+      <button onclick="getEncouragement()">Get Encouragement</button>
+      <p id="response"></p>
+    </section>
+
+    <form action="/checkout" method="POST">
+  <button type="submit">Upgrade for $5</button>
+</form>
+
+
+    <section class="entries">
+     <h2>Previous Entries</h2>
+<ul class="entries">
+  {% for entry in entries %}
+    <li>
+      <strong>{{ entry[1] }}</strong><br>
+       {{ entry[2] }}
+    </li>
+  {% endfor %}
+</ul>
+
+    </section>
+
+    <footer>
+      <p><em>Keep going, one step at a time. You're doing better than you think.</em></p>
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </nav>
+      <p>Made with love by Emmanuel | 2025 Mood Journal</p>
+    </footer>
+  </div>
+
+  <script>
+    const verses = [
+      { text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1" },
+      { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7" },
+      { text: "The joy of the Lord is my strength.", ref: "Nehemiah 8:10" },
+      { text: "Do not be afraid, for I am with you.", ref: "Isaiah 41:10" },
+      { text: "Come to me, all you who are weary and burdened, and I will give you rest.", ref: "Matthew 11:28" }
+    ];
+
+    let currentVerse = 0;
+
+    function nextVerse() {
+      currentVerse = (currentVerse + 1) % verses.length;
+      document.getElementById("verse-text").textContent = verses[currentVerse].text;
+      document.getElementById("verse-ref").textContent = verses[currentVerse].ref;
+    }
+
+    // --- AI Encouragement ---
+    async function getEncouragement() {
+      const input = document.getElementById("userinput").value;
+
+      const response = await fetch(
+        "https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium",
+        {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer YOUR_HF_API_KEY", // replace with your actual key
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputs: input }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      // check both possible response formats
+      if (data.generated_text) {
+        document.getElementById("response").textContent = data.generated_text;
+      } else if (Array.isArray(data) && data[0]?.generated_text) {
+        document.getElementById("response").textContent = data[0].generated_text;
+      } else {
+        document.getElementById("response").textContent =
+          "Sorry, I couldn't get a response. Please try again.";
+      }
+    }
+  </script>
+</body>
+</html>

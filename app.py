@@ -78,30 +78,15 @@ if __name__ == "__main__":
 def success():
     return "Payment successful! Thank you."
 
-import stripe
 
-stripe.api_key = "your_stripe_secret_key"
+@app.route("/insasave-checkout", methods=["POST"])
+def instasave_checkout():
 
-@app.route("/checkout", methods=["POST"])
-def checkout():
-    session = stripe.checkout.Session.create(
-        payment_method_types=["card"],
-        line_items=[{
-            "price_data": {
-                "currency": "usd",
-                "product_data": {"name": "Mood Journal Premium"},
-                "unit_amount": 500,  # in cents ($5.00)
-            },
-            "quantity": 1,
-        }],
-        mode="payment",
-        success_url="http://localhost:5000/success",
-        cancel_url="http://localhost:5000/cancel",
-    )
-    return redirect(session.url, code=303)
+    return redirect("/success")
 
 
 @app.route("/cancel")
 def cancel():
     return "Payment canceled."
+
 
